@@ -1,0 +1,100 @@
+app-id: com.skylight.shoppinglist
+runtime: org.gnome.Platform
+runtime-version: '45'
+sdk: org.gnome.Sdk
+command: skylight-shopping-list
+
+finish-args:
+  # X11 + XShm access
+  - --share=ipc
+  - --socket=fallback-x11
+  
+  # Wayland access
+  - --socket=wayland
+  
+  # Network access
+  - --share=network
+  
+  # Camera access
+  - --device=all
+  
+  # Home directory access for photo upload
+  - --filesystem=home:ro
+  
+  # Access to Download folder
+  - --filesystem=xdg-download
+  
+  # Access to Pictures folder  
+  - --filesystem=xdg-pictures
+  
+  # Persist data
+  - --persist=.local/share/skylight-shopping-list
+  - --persist=.config/skylight-shopping-list
+
+modules:
+  # Python dependencies
+  - name: python3-requirements
+    buildsystem: simple
+    build-commands:
+      - pip3 install --prefix=/app --no-deps -r requirements.txt
+    sources:
+      - type: file
+        path: requirements.txt
+  
+  # OpenCV
+  - name: opencv
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_LIST=core,imgproc,imgcodecs,videoio,python3
+      - -DBUILD_opencv_apps=OFF
+      - -DBUILD_TESTS=OFF
+      - -DBUILD_PERF_TESTS=OFF
+      - -DBUILD_EXAMPLES=OFF
+      - -DPYTHON3_EXECUTABLE=/usr/bin/python3
+    sources:
+      - type: archive
+        url: https://github.com/opencv/opencv/archive/4.8.1.tar.gz
+        sha256: 62f650467a60a38794d681ae7e66e3e8cfba38f445e0bf87867e2f2cdc8be9d5
+  
+  # zbar (barcode scanning)
+  - name: zbar
+    config-opts:
+      - --without-qt
+      - --without-gtk
+      - --without-x
+      - --disable-video
+      - --enable-codes=ean,code128,code39,qrcode
+    sources:
+      - type: git
+        url: https://github.com/mchehab/zbar.git
+        tag: '0.23.92'
+  
+  # Main application
+  - name: skylight-shopping-list
+    buildsystem: meson
+    sources:
+      - type: dir
+        path: ../..
+    
+    post-install:
+      # Install icon
+      - install -Dm644 data/icons/hicolor/scalable/apps/com.skylight.shoppinglist.svg
+          /app/share/icons/hicolor/scalable/apps/com.skylight.shoppinglist.svg
+      
+      # Install desktop file
+      - install -Dm644 data/com.skylight.shoppinglist.desktop
+          /app/share/applications/com.skylight.shoppinglist.desktop
+      
+      # Install appdata
+      - install -Dm644 data/com.skylight.shoppinglist.appdata.xml
+          /app/share/metainfo/com.skylight.shoppinglist.appdata.xml
+
+cleanup:
+  - /include
+  - /lib/pkgconfig
+  - /share/aclocal
+  - /share/man
+  - '*.la'
+  - '*.a'

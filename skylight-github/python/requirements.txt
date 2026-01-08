@@ -1,0 +1,26 @@
+# Skylight Shopping List - Linux Dependencies
+
+# OpenFoodFacts Official Python SDK
+openfoodfacts>=1.1.1
+
+# GUI Framework
+PyGObject>=3.42.0
+
+# Image Processing
+opencv-python>=4.8.0
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Barcode Scanning
+pyzbar>=0.1.9
+
+# HTTP Client
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# Data Storage
+SQLAlchemy>=2.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0

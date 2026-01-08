@@ -1,0 +1,56 @@
+# Maintainer: Your Name <your.email@example.com>
+pkgname=skylight-shopping-list
+pkgver=1.0.0
+pkgrel=1
+pkgdesc="Shopping list app with camera scanning and Skylight sync"
+arch=('x86_64' 'aarch64')
+url="https://github.com/YOUR_USERNAME/skylight-shopping-list-linux"
+license=('MIT')
+depends=(
+    'python>=3.10'
+    'gtk4'
+    'libadwaita'
+    'python-gobject'
+    'python-requests'
+    'python-pillow'
+    'opencv'
+    'python-opencv'
+    'python-pyzbar'
+    'python-numpy'
+    'zbar'
+)
+makedepends=(
+    'meson'
+    'ninja'
+    'python-setuptools'
+)
+optdepends=(
+    'gst-plugins-good: Camera support'
+    'v4l-utils: Webcam utilities'
+)
+source=("$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cd "$pkgname-$pkgver"
+    
+    # Build with meson
+    arch-meson . build
+    meson compile -C build
+}
+
+check() {
+    cd "$pkgname-$pkgver"
+    meson test -C build || true
+}
+
+package() {
+    cd "$pkgname-$pkgver"
+    
+    # Install using meson
+    DESTDIR="$pkgdir" meson install -C build
+    
+    # Install additional files
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}
