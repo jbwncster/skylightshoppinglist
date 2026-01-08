@@ -1,0 +1,125 @@
+# ===== General =====
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.log
+*.tmp
+*.temp
+.env
+.env.local
+*.bak
+
+# ===== Python =====
+python/__pycache__/
+python/*.py[cod]
+python/*$py.class
+python/.Python
+python/venv/
+python/env/
+python/.venv/
+python/.env/
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ===== iOS / Swift =====
+ios/*.xcodeproj/
+ios/*.xcworkspace/
+ios/xcuserdata/
+ios/DerivedData/
+ios/Pods/
+ios/.build/
+ios/*.pbxuser
+ios/*.mode1v3
+ios/*.mode2v3
+ios/*.perspectivev3
+ios/*.moved-aside
+ios/build/
+ios/Build/
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+*.xccheckout
+*.xcscmblueprint
+ios/Packages/
+ios/.swiftpm/
+ios/Package.resolved
+
+# ===== Android =====
+android/.gradle/
+android/.idea/
+android/build/
+android/app/build/
+android/captures/
+android/*.iml
+android/*.apk
+android/*.aab
+android/local.properties
+android/.cxx/
+android/output-metadata.json
+
+# ===== Windows / .NET MAUI =====
+windows/bin/
+windows/obj/
+windows/*.suo
+windows/*.user
+windows/*.userosscache
+windows/*.sln.docstates
+windows/.vs/
+windows/*.nupkg
+windows/packages/
+windows/.nuget/
+windows/artifacts/
+windows/project.lock.json
+windows/TestResults/
+windows/*.msix
+windows/*.msixbundle
+windows/BundleArtifacts/
+
+# ===== IDEs =====
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains (IntelliJ, Android Studio, etc.)
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Visual Studio
+*.sln
+*.vcxproj*
+.vs/
+
+# Xcode
+*.xcuserstate
+IDEWorkspaceChecks.plist
+
+# ===== Secrets & Config =====
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+secrets.json
+google-services.json
+GoogleService-Info.plist
+credentials.json
+appsettings.Development.json
+
+# ===== Archives =====
+*.zip
+*.tar.gz
+*.rar
+*.7z
